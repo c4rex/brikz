@@ -25,3 +25,7 @@ The app guides your child through a set of levels and stages they need to comple
 - https://github.com/alexjlockwood/android-2048-compose
 - https://github.com/android/compose-samples
 - https://developer.android.com/jetpack/compose
+
+# Slack channel
+
+[Join us on slack!](https://join.slack.com/share/zt-i109anpi-6Z7SNY8DaajHD~KtIaTeuA)
