@@ -7,14 +7,6 @@ A hack on Duplo bricks to repurpose them in a gamified way for early learning ed
  - [Jetpack compose](https://developer.android.com/jetpack/compose)
 
 
-### SDK KEY
-
-
-
-### Where should I enter the license key
-- [Where should I enter the license key](https://www.wikitude.com/external/doc/documentation/latest/androidnative/triallicense.html#where-should-i-enter-the-license-key)
-
-
 ## Jetpack compose resources
 
 - https://foso.github.io/Jetpack-Compose-Playground/
