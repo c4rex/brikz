@@ -43,6 +43,8 @@ class CountDownActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.supportActionBar!!.hide()
+
         val binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val stage = intent.getParcelableExtra<StageModel>("stage")
