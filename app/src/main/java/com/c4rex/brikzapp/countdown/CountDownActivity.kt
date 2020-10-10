@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import com.c4rex.brikzapp.R
+import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
 
 
 private const val TIME_START = "TIME_START"
@@ -20,12 +20,12 @@ fun launchCountDownActivity(context: Context, timeStart: Long) {
 
 @VisibleForTesting
 fun createCountDownActivity(context: Context, timeStart: Long): Intent {
-    val intent = Intent(context, StageCountDown::class.java)
+    val intent = Intent(context, CountDownActivity::class.java)
     intent.putExtra(TIME_START, timeStart)
     return intent
 }
 
-data class StageCountDown(
+data class StageCountDownActivityArg(
     val timeStart: Long
 )
 
@@ -38,18 +38,16 @@ class CountDownActivity : AppCompatActivity() {
     private lateinit var timer: TextView
 
     var time_in_milli_seconds = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_count_down)
+        val binding = ActivityCountDownBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         time_in_milli_seconds = 1 *60000L
-        startTimer(time_in_milli_seconds)
+        startTimer(time_in_milli_seconds, binding)
 
-        timer  = findViewById<TextView>(R.id.timer)
-        stopButton = findViewById<Button>(R.id.buttonStop)
-
-        stopButton.setOnClickListener {
+        binding.buttonStop.setOnClickListener {
             pauseTimer()
         }
 
@@ -60,7 +58,7 @@ class CountDownActivity : AppCompatActivity() {
         isRunning = false
     }
 
-    private fun startTimer(time_in_seconds: Long) {
+    private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
         countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
             override fun onFinish() {
                 Toast.makeText(
@@ -72,22 +70,22 @@ class CountDownActivity : AppCompatActivity() {
 
             override fun onTick(p0: Long) {
                 time_in_milli_seconds = p0
-                updateTextUI()
+                updateTextUI(binding)
             }
         }
         countdown_timer.start()
 
         isRunning = true
-        stopButton.text = "COMPLETE"
+        binding.buttonStop.text = "COMPLETE"
     }
 
-    private fun updateTextUI() {
+    private fun updateTextUI(binding: ActivityCountDownBinding) {
         val minute = (time_in_milli_seconds / 1000) / 60
         val seconds = (time_in_milli_seconds / 1000) % 60
         if (seconds < 10){
-            timer.text = "$minute:0$seconds"
+            binding.timer.text = "$minute:0$seconds"
         }else{
-            timer.text = "$minute:$seconds"
+            binding.timer.text = "$minute:$seconds"
         }
     }
 }
