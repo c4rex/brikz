@@ -1,6 +1,5 @@
 package com.c4rex.brikzapp
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
@@ -9,17 +8,16 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.core.content.ContextCompat.startActivity
+import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
-import com.c4rex.brikzapp.level.SelectLevelActivity
+import com.c4rex.brikzapp.countdown.launchCountDownActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.typography
+import com.c4rex.brikzapp.stagepreview.launchStagePreviewActivity
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +26,7 @@ class MainActivity : AppCompatActivity() {
             BrikzAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Greeting("Brikz")
-                        App()
-                        RecognitionImmerseButton()
-                    }
+                    App()
                 }
             }
         }
@@ -45,36 +35,16 @@ class MainActivity : AppCompatActivity() {
     @Preview(showBackground = true)
     @Composable
     private fun App() {
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
+        ) {
             Button(
-                onClick = { startActivity(Intent(this@MainActivity, SelectLevelActivity::class.java)) }
+                onClick = { launchCountDownActivity(context = this@MainActivity, timeStart = 60000) },
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally).fillMaxWidth()
             ) {
-                Text(text = "Challenge", style = typography.button)
+                Text(text = "Level 1", style = typography.button)
             }
+        }
     }
 }
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RecognitionImmerseButton() {
-    val context = ContextAmbient.current
-
-    Button(onClick = {
-            startActivity(
-                context,
-                Intent(
-                    context, RecognitionActivity::class.java
-                ),
-                null
-        )
-    },backgroundColor = Color.Red) {
-        Text("Button")
-    }
-
-}
-
-
