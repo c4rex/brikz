@@ -21,8 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BrikzApp">
-        <activity android:name=".countdown.CountDownActivity" />
-        <activity android:name=".level.SelectLevelActivity" />
+        <activity android:name=".countdown.CountDownActivity"
+            android:theme="@style/Theme.BrikzApp.NoActionBar"
+        />
+        <activity android:name=".level.SelectLevelActivity"
+            />
         <activity android:name=".level.SelectStageActivity" />
         <activity android:name=".stagepreview.StagePreviewActivity" />
         <activity
@@ -37,6 +40,7 @@
         </activity>
         <activity
             android:name=".recognition.activities.RecognitionActivity"
+            android:theme="@style/Theme.BrikzApp.NoActionBar"
             android:configChanges="orientation|keyboardHidden|screenSize" />
     </application>
 
