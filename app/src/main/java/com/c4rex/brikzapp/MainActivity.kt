@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.ui.tooling.preview.Preview
+import com.c4rex.brikzapp.lead.activity.LeadActivity
+import com.c4rex.brikzapp.lead.activity.WinActivity
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
 import com.c4rex.brikzapp.level.SelectLevelActivity
 import com.c4rex.brikzapp.player.PlayerMockSource
@@ -38,8 +40,10 @@ class MainActivity : AppCompatActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Greeting("Brikz")
+
                         RenderChallengeBtn(player)
                         Spacer(Modifier.preferredSize(26.dp))
+
                         RecognitionImmerseButton()
                     }
                 }
@@ -65,6 +69,40 @@ fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
+@Composable
+fun WinButton() {
+    val context = ContextAmbient.current
+
+    Button(onClick = {
+        startActivity(
+                context,
+                Intent(
+                        context, WinActivity::class.java
+                ),
+                null
+        )
+    },backgroundColor = Color.Red) {
+        Text("Win Activity Test")
+    }
+
+}
+@Composable
+fun LeadButton() {
+    val context = ContextAmbient.current
+
+    Button(onClick = {
+        startActivity(
+            context,
+            Intent(
+                context, LeadActivity::class.java
+            ),
+            null
+        )
+    },backgroundColor = Color.Red) {
+        Text("laed Activity Test")
+    }
+
+}
 @Preview(showBackground = true)
 @Composable
 fun RecognitionImmerseButton() {
