@@ -11,6 +11,7 @@
         android:theme="@style/Theme.BrikzApp">
         <activity android:name=".level.SelectLevelActivity"></activity>
         <activity android:name=".level.SelectStageActivity" />
+        <activity android:name=".stagepreview.StagePreviewActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
