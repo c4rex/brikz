@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         Greeting("Brikz")
                         App()
+                        LeadButton()
                         RecognitionImmerseButton()
                     }
                 }
@@ -71,7 +72,7 @@ fun LeadButton() {
             null
         )
     },backgroundColor = Color.Red) {
-        Text("Button")
+        Text("laed Activity Test")
     }
 
 }
