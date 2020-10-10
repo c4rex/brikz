@@ -20,7 +20,7 @@ import com.c4rex.brikz.compose.avatar
 
 import com.c4rex.brikz.ui.BrikzTheme
 
-class LeaderBoard : AppCompatActivity() {
+class LeaderBoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
