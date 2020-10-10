@@ -1,16 +1,11 @@
 package com.c4rex.brikzapp.level
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.Text
-import androidx.compose.foundation.ScrollableRow
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +13,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
+import com.c4rex.brikzapp.R
+import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.shapes
 import com.c4rex.brikzapp.ui.typography
@@ -85,20 +81,41 @@ class SelectStageActivity : AppCompatActivity() {
                 Column {
                     Image(
                         asset = imageResource(id = stage.getImage()),
-                        contentScale = ContentScale.FillHeight,
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .align(alignment = Alignment.CenterHorizontally)
-                            .weight(3f)
+                            .weight(4f)
+                            .fillMaxSize()
                     )
-                    Button(
-                        onClick = {},
+                    Row(
                         modifier = Modifier
-                            .align(alignment = Alignment.CenterHorizontally)
-                            .weight(1f)
-                            .fillMaxWidth(),
-                        enabled = stage.enabled
+                                .align(alignment = Alignment.CenterHorizontally)
+                                .weight(1f)
+                                .fillMaxWidth(),
                     ) {
-                        Text(text = "Let's Build!", style = typography.h2)
+                        Button(
+                                onClick = { startActivity(
+                                    Intent(this@SelectStageActivity, StagePreviewActivity::class.java).apply
+                                    { putExtra("stage", stage) }
+                                )},
+                                modifier = Modifier
+                                        .weight(2f)
+                                        .fillMaxHeight(),
+                                enabled = stage.enabled
+                        ) {
+                            Text(text = "Let's Build!", style = typography.h2)
+                        }
+                        Button(
+                                onClick = {},
+                                modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight(),
+                                enabled = stage.enabled
+                        ) {
+                            Image(
+                                    asset = imageResource(id = R.drawable.winner_cup_white)
+                            )
+                        }
                     }
                 }
             }

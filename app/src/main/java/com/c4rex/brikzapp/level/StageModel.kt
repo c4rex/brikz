@@ -4,6 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.c4rex.brikzapp.R
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.random.Random.Default.nextInt
 
 data class StageModel(
     var id: Int,
@@ -14,23 +17,31 @@ data class StageModel(
     var completed:Boolean,
     var enabled:Boolean,
     @DrawableRes val imageBricks: Int,
-    @DrawableRes val imageBricksBuild: Int
+    var imageBrickBuild:List<Int>?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readByte() != 0.toByte(),
-        parcel.readByte() != 0.toByte(),
-        parcel.readInt(),
-        parcel.readInt()
-    ) {
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readString(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readByte() != 0.toByte(),
+            parcel.readInt(),
+            parcel.createIntArray()?.toList()) {
     }
 
     fun getImage(): Int {
-        return R.drawable.padlock
+        if (imageBricks != 0 && !enabled) {
+            return R.drawable.padlock
+        }
+        return imageBricks
+    }
+
+     fun getRandomBuild(): Int {
+        val i = Random().nextInt(imageBrickBuild!!.size)
+
+        return imageBrickBuild!![i]
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -42,7 +53,7 @@ data class StageModel(
         parcel.writeByte(if (completed) 1 else 0)
         parcel.writeByte(if (enabled) 1 else 0)
         parcel.writeInt(imageBricks)
-        parcel.writeInt(imageBricksBuild)
+        parcel.writeIntArray(imageBrickBuild?.toIntArray())
     }
 
     override fun describeContents(): Int {
