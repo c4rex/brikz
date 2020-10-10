@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">brikzApp</string>
-    <string name="title_activity_lead">My Compose App</string>
+    <string name="complete_the_stage">Complete the stage</string>
 </resources>

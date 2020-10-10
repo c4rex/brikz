@@ -12,8 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.c4rex.brikzapp.R
+import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.shapes
@@ -24,12 +27,13 @@ class SelectStageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         val level = intent.getParcelableExtra<LevelModel>("level")
+        val player = intent.getParcelableExtra<PlayerModel>("player")
 
         setContent {
             BrikzAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    if (level != null) {
-                        setUpStages(stages = level.stages) {}
+                    if (level != null && player != null) {
+                        setUpStages(stages = level.stages, player = player) {}
                     }
                 }
             }
@@ -39,6 +43,7 @@ class SelectStageActivity : AppCompatActivity() {
     @Composable
     private fun setUpStages(
         stages: List<StageModel>,
+        player: PlayerModel,
         onSelected: (StageModel) -> Unit
     ) {
         ScrollableRow(
@@ -46,14 +51,31 @@ class SelectStageActivity : AppCompatActivity() {
             horizontalArrangement = Arrangement.Center
         ) {
             stages.forEach {
-                LevelCard(it) { onSelected(it) }
+                LevelCard(it, player) { onSelected(it) }
             }
         }
+    }
+
+    private fun intentPreviewStage(stage:StageModel, player:PlayerModel): Intent {
+        val intent = Intent(this, StagePreviewActivity::class.java)
+        intent.putExtra("stage", stage)
+        intent.putExtra("player", player)
+
+        return intent;
+    }
+
+    private fun intentLeaderBoard(stage:StageModel, player:PlayerModel): Intent {
+        val intent = Intent(this, SelectStageActivity::class.java)
+        intent.putExtra("stage", stage)
+        intent.putExtra("player", player)
+
+        return intent;
     }
 
     @Composable
     private fun LevelCard(
         stage: StageModel,
+        player: PlayerModel,
         onClick: () -> Unit
     ) {
         val padding = 20.dp
@@ -69,7 +91,10 @@ class SelectStageActivity : AppCompatActivity() {
                 Text(
                     text = it,
                     style = typography.h2,
-                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
+                    modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                    color = MaterialTheme.colors.primary,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 46.sp
                 )
             }
             Spacer(Modifier.preferredSize(padding))
@@ -94,10 +119,7 @@ class SelectStageActivity : AppCompatActivity() {
                                 .fillMaxWidth(),
                     ) {
                         Button(
-                                onClick = { startActivity(
-                                    Intent(this@SelectStageActivity, StagePreviewActivity::class.java).apply
-                                    { putExtra("stage", stage) }
-                                )},
+                                onClick = { startActivity(intentPreviewStage(stage, player))},
                                 modifier = Modifier
                                         .weight(2f)
                                         .fillMaxHeight(),

@@ -7,7 +7,6 @@ object PlayerMockSource {
         val gson = Gson()
         val mockJson:String = getMockJson()
         return gson.fromJson(mockJson, PlayerModel::class.java)
-        // return gson.toJson(player.levelAdvance[1].stageAdvance[0].completed)
     }
 
     private fun getMockJson():String {

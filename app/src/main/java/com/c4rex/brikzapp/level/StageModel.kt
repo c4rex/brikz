@@ -5,14 +5,12 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.c4rex.brikzapp.R
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.random.Random.Default.nextInt
 
 data class StageModel(
     var id: Int,
     var stageId:Int,
     var name: String?,
-    var timeMilSec:Int,
+    var timeMilSec: Long,
     var difficulty:Int,
     var completed:Boolean,
     var enabled:Boolean,
@@ -23,7 +21,7 @@ data class StageModel(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readString(),
-            parcel.readInt(),
+            parcel.readLong(),
             parcel.readInt(),
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
@@ -48,7 +46,7 @@ data class StageModel(
         parcel.writeInt(id)
         parcel.writeInt(stageId)
         parcel.writeString(name)
-        parcel.writeInt(timeMilSec)
+        parcel.writeLong(timeMilSec)
         parcel.writeInt(difficulty)
         parcel.writeByte(if (completed) 1 else 0)
         parcel.writeByte(if (enabled) 1 else 0)
