@@ -61,6 +61,8 @@ class CountDownActivity : AppCompatActivity() {
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
+        val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
@@ -81,10 +83,6 @@ class CountDownActivity : AppCompatActivity() {
         countdown_timer.start()
 
         isRunning = true
-        binding.buttonStop.setOnClickListener {
-            val intent = Intent(this, RecognitionActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun updateTextUI(binding: ActivityCountDownBinding) {

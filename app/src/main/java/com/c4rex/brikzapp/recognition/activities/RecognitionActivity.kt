@@ -122,7 +122,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
             )
         )
 
-        Timer("crashFailSafe", false).schedule(5000) {
+        Timer("crashFailSafe", false).schedule(10000) {
             gotoPageW()
         }
     }
