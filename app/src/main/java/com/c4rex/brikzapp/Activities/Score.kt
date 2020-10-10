@@ -20,14 +20,14 @@ import com.c4rex.brikz.compose.avatar
 
 import com.c4rex.brikz.ui.BrikzTheme
 
-class MainActivity : AppCompatActivity() {
+class Score : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BrikzTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    LeaderBoard()
+                   Score()
                 }
             }
         }

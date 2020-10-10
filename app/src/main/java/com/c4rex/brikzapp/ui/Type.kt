@@ -1,4 +1,4 @@
-package com.c4rex.brikzapp.ui
+package com.c4rex.brikz.ui
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
