@@ -1,66 +1,71 @@
 package com.c4rex.brikzapp.dao
 
 import com.c4rex.brikzapp.player.PlayerModel
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.*
+import com.google.firebase.ktx.Firebase
+@IgnoreExtraProperties
+data class User(
+        var username: String? = "",
+        var score: Int? = 0,
+        var stage: String? = "0",
+        var nivel: String? = "0"
 
+)
 class ScoreRepos {
+    val database = Firebase.database
 
-    private val db = FirebaseFirestore.getInstance()
 
-    /**
-     * @exception
-     */
 
-    fun updateScore(user:String,score:Int,nivel:String,stage:String){
+    fun updateScore(user:String,score:Int,nivel:String,stage:String)
+    {
 
-        val scoreUser = hashMapOf(
-            "score" to score
-        )
 
         val scoreTable = hashMapOf(
             score to user
         )
         val scorekey=nivel.plus(":").plus(stage);
 
-      db.collection("scores").document(scorekey).set(scoreTable);
-        db.collection("User").document(user).collection("progress").document(scorekey).set(scoreUser)
+        val scoreUser = hashMapOf(
+                scorekey to score
+        )
+        database.getReference("User/${user}/levels").setValue(scoreUser);
+        database.getReference("scores/${scorekey}").setValue(scoreTable);
+
     }
 
 
 
-    fun getuserInfo(user:String,listener: (user: PlayerModel) -> Unit) {
+    fun getuserInfo(user:String, listener: (query:QueryDocumentSnapshot) -> Unit) {
 
 
-        db.collection("User").whereEqualTo("__name__",user)
-             .get()
-                .addOnSuccessListener { result ->
-                    for (resu in result){
+      // db.collection("User").whereEqualTo("__name__",user)
+      //      .get()
+      //         .addOnSuccessListener { result ->
 
+      //             var  userData= result.elementAt(0)
+      //             listener(userData);
 
-                    }
-                    listener(result);
-                }
-                .addOnFailureListener { exception ->
-                    throw Exception("error Fetching")
-                }
+      //         }
+      //         .addOnFailureListener { exception ->
+      //             throw Exception("error Fetching")
+      //         }
 
     }
 
 
     fun getOrderScore(nivel:String, stage:String, limit: Long, listener: (querySnapshot: QuerySnapshot?) -> Unit) {
 
-        val scorekey=nivel.plus(":").plus(stage);
-        db.collection("scores").document(scorekey).collection("scores")
-            .orderBy("__name__", Query.Direction.DESCENDING).limit(limit).get()
-
-            .addOnSuccessListener { result ->
-                listener(result);
-            }
-            .addOnFailureListener { exception ->
-                throw Exception("error Fetching")
-            }
+//        val scorekey=nivel.plus(":").plus(stage);
+//        db.collection("scores").document(scorekey).collection("scores")
+//            .orderBy("__name__", Query.Direction.DESCENDING).limit(limit).get()
+//
+//            .addOnSuccessListener { result ->
+//                listener(result);
+//            }
+//            .addOnFailureListener { exception ->
+//                throw Exception("error Fetching")
+//            }
 
     }
 

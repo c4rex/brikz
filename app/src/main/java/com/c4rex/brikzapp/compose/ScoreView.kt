@@ -27,18 +27,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import com.c4rex.brikzapp.R
+import com.c4rex.brikzapp.player.PlayerModel
 
 @Composable
-fun Score() {
+fun Score(score:Int,player:String,level:String,Stage:String) {
 
         Image(
                 asset = imageResource(id =R.drawable.background  ),
                 modifier = Modifier
                         .background(Color(R.color.teal_200))
-                        .fillMaxHeight(),contentScale = ContentScale.Fit)
+                        .fillMaxHeight(),contentScale = ContentScale.FillHeight)
     Column() {
         Text(text = "Success",modifier = Modifier.fillMaxWidth().weight(10f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Normal,fontSize = 30.sp,fontWeight = FontWeight.Bold))
-        Text(text = "asdads", Modifier.fillMaxWidth().weight(5f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Italic,fontSize = 30.sp))
+        Text(text = score.toString(), Modifier.fillMaxWidth().weight(5f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Italic,fontSize = 30.sp))
 
     }
 
@@ -56,5 +57,9 @@ fun Score() {
 @Preview(showBackground = true)
 @Composable
 fun ScorePreview() {
-    Score()
+    var level = "1"
+    var player = "player_1"
+    var score = 889
+    var stage = "1"
+    Score(level = level ,player = player, score = score, Stage = stage )
 }

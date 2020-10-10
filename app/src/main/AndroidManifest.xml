@@ -25,6 +25,7 @@
         <activity android:name=".level.SelectLevelActivity"></activity>
         <activity android:name=".level.SelectStageActivity" />
         <activity android:name=".lead.activity.LeadActivity" />
+        <activity android:name=".lead.activity.WinActivity" />
         <activity android:name=".stagepreview.StagePreviewActivity"></activity>
         <activity
             android:name=".MainActivity"

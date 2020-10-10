@@ -79,18 +79,18 @@ fun LeadearBoardRow(item: RankItem, position: Int,color:Color) {
 fun LeaderBoard() {
 
     val items: Array<RankItem> = arrayOf(
-            RankItem(1, "a111111111111111", 999999),
-            RankItem(3, "222222222", 999999),
-            RankItem(1, "ho33333333333la", 999999),
-            RankItem(3, "hol4444444444a", 999999),
-            RankItem(1, "ho5555555555la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(3, "ho666666666666la", 999999),
-            RankItem(1, "h7777777777777ola", 999999)
+            RankItem(1, "user 1", 999999),
+            RankItem(3, "user 1", 8896),
+            RankItem(1, "user 1", 15666),
+            RankItem(3, "user 1", 11896),
+            RankItem(1, "user 1", 1298),
+            RankItem(3, "user 1", 342),
+            RankItem(3, "user 1", 123),
+            RankItem(3, "user 1", 234),
+            RankItem(3, "user 1", 222),
+            RankItem(3, "user 1", 241),
+            RankItem(3, "user 1", 222),
+            RankItem(1, "user 1", 100)
     );
 
 
@@ -114,7 +114,7 @@ fun LeaderBoard() {
             }
         }
 
-        LeadearBoardRow(RankItem(3, "tttttt", 22), 22, Color.LightGray)
+        LeadearBoardRow(RankItem(3, "tttttt", 22), 22, Color.Green)
 
 
     }
