@@ -5,8 +5,6 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.c4rex.brikzapp.R
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.random.Random.Default.nextInt
 
 data class StageModel(
     var id: Int,
