@@ -8,8 +8,8 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.c4rex.brikz"
-        minSdkVersion 24
+        applicationId "com.c4rex.brikzapp"
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -49,9 +49,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar, *.aar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    implementation platform('com.google.firebase:firebase-bom:25.12.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -59,7 +56,6 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.ui:ui-tooling:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.7.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     testImplementation 'junit:junit:4.+'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01'

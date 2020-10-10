@@ -1,4 +1,4 @@
-package com.c4rex.brikz.ui
+package com.c4rex.brikzapp.ui
 
 import androidx.compose.ui.graphics.Color
 

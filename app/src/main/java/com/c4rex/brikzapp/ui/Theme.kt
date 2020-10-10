@@ -1,4 +1,4 @@
-package com.c4rex.brikz.ui
+package com.c4rex.brikzapp.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -31,7 +31,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun BrikzTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun BrikzAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
