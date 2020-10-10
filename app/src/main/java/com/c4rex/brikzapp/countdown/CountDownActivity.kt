@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
+import com.c4rex.brikzapp.level.StageModel
+import com.c4rex.brikzapp.player.PlayerModel
 
 
 private const val TIME_START = "TIME_START"
@@ -43,8 +45,10 @@ class CountDownActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val stage = intent.getParcelableExtra<StageModel>("stage")
+        val player = intent.getParcelableExtra<PlayerModel>("player")
 
-        time_in_milli_seconds = 1 *60000L
+        time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
         startTimer(time_in_milli_seconds, binding)
 
         binding.buttonStop.setOnClickListener {

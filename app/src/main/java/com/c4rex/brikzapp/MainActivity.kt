@@ -14,16 +14,20 @@ import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.ui.tooling.preview.Preview
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
 import com.c4rex.brikzapp.level.SelectLevelActivity
+import com.c4rex.brikzapp.player.PlayerMockSource
+import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.typography
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val player = PlayerMockSource.getArtistMock()
         setContent {
             BrikzAppTheme {
                 // A surface container using the 'background' color from the theme
@@ -34,7 +38,8 @@ class MainActivity : AppCompatActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Greeting("Brikz")
-                        App()
+                        RenderChallengeBtn(player)
+                        Spacer(Modifier.preferredSize(26.dp))
                         RecognitionImmerseButton()
                     }
                 }
@@ -42,14 +47,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @Preview(showBackground = true)
     @Composable
-    private fun App() {
-            Button(
-                onClick = { startActivity(Intent(this@MainActivity, SelectLevelActivity::class.java)) }
-            ) {
-                Text(text = "Challenge", style = typography.button)
-            }
+    private fun RenderChallengeBtn(player:PlayerModel) {
+        Button(
+            onClick = { startActivity(
+                Intent(this@MainActivity, SelectLevelActivity::class.java).apply
+                { putExtra("player", player) }
+            )}
+        ) {
+            Text(text = "Challenge", style = typography.h2)
+        }
     }
 }
 
@@ -72,7 +79,7 @@ fun RecognitionImmerseButton() {
                 null
         )
     },backgroundColor = Color.Red) {
-        Text("Button")
+        Text("Wikitude", style = typography.h2)
     }
 
 }
