@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
-import com.c4rex.brikzapp.MainActivity
+import com.c4rex.brikzapp.countdown.CountDownActivity
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.ui.BrikzAppTheme
@@ -41,7 +41,7 @@ class StagePreviewActivity : AppCompatActivity() {
     }
 
     private fun intentCountdown(stage:StageModel, player: PlayerModel): Intent {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, CountDownActivity::class.java)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
 
