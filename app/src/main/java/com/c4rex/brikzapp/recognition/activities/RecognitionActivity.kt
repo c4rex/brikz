@@ -1,11 +1,12 @@
 package com.c4rex.brikzapp.recognition.activities
 
+import java.util.Timer
+import kotlin.concurrent.schedule
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -40,7 +41,7 @@ private const val WIKITUDE_SDK_KEY =
 
 private val TAG: String? = RecognitionActivity::class.qualifiedName
 
-class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalRendering, View.OnClickListener {
+class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalRendering {
 
     private lateinit var wikitudeSDK: WikitudeSDK
     private lateinit var recognitionRenderer : RecognitionRenderer
@@ -86,34 +87,17 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         wikitudeSDK.onDestroy()
     }
 
-    override fun onTargetsLoaded(p0: ImageTracker?) {
+    override fun onTargetsLoaded(p0: ImageTracker?) {}
 
-    }
+    override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {}
 
-    override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {
-    }
+    override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {}
 
-    override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {
-        ContextCompat.startActivity(
-            this,
-            Intent(
-                this, MainActivity::class.java
-            ),
-            null
-        )
-    }
+    override fun onImageTracked(p0: ImageTracker?, p1: ImageTarget?) {}
 
-    override fun onImageTracked(p0: ImageTracker?, p1: ImageTarget?) {
-        Log.v(TAG, "FOUND IMAGE CARLOS !!!!!!!!!!!!!!!")
-    }
+    override fun onImageLost(p0: ImageTracker?, p1: ImageTarget?) {}
 
-    override fun onImageLost(p0: ImageTracker?, p1: ImageTarget?) {
-        Log.v(TAG, "LOST IMAGE CARLOS :(((((((((((((((((((((((((")
-    }
-
-    override fun onExtendedTrackingQualityChanged(p0: ImageTracker?, p1: ImageTarget?, p2: Int, p3: Int) {
-
-    }
+    override fun onExtendedTrackingQualityChanged(p0: ImageTracker?, p1: ImageTarget?, p2: Int, p3: Int) {}
 
     override fun onRenderExtensionCreated(renderExtension: RenderExtension?) {
 
@@ -123,9 +107,6 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
 
         setContentView(recognitionView)
         val ll = LinearLayout(this)
-
-
-
 
         ll.addView(ComposeView(this).apply {
             setContent {
@@ -140,10 +121,20 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
         )
+
+        Timer("crashFailSafe", false).schedule(5000) {
+            gotoPageW()
+        }
     }
 
-    override fun onClick(v: View?) {
-        Log.v(TAG, "OK THAT WORKS NOW KRAKAKAKA CHING CHING GREEEEEEEEEEEEEEEEEEEEEEEEEEEEN COINS!!!!!!!!")
+    private fun gotoPageW() {
+        ContextCompat.startActivity(
+            this,
+            Intent(
+                this, MainActivity::class.java
+            ),
+            null
+        )
     }
 
     @Preview
