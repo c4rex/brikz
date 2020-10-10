@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.R
-import kotlinx.android.synthetic.main.activity_count_down.*
+
 
 private const val TIME_START = "TIME_START"
 
@@ -18,12 +20,12 @@ fun launchCountDownActivity(context: Context, timeStart: Long) {
 
 @VisibleForTesting
 fun createCountDownActivity(context: Context, timeStart: Long): Intent {
-    val intent = Intent(context, StageCountDownActivityArg::class.java)
+    val intent = Intent(context, StageCountDown::class.java)
     intent.putExtra(TIME_START, timeStart)
     return intent
 }
 
-data class StageCountDownActivityArg(
+data class StageCountDown(
     val timeStart: Long
 )
 
@@ -31,6 +33,10 @@ class CountDownActivity : AppCompatActivity() {
 
     private lateinit var countdown_timer: CountDownTimer
     private var isRunning: Boolean = true;
+
+    private lateinit var stopButton: Button
+    private lateinit var timer: TextView
+
     var time_in_milli_seconds = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +46,13 @@ class CountDownActivity : AppCompatActivity() {
         time_in_milli_seconds = 1 *60000L
         startTimer(time_in_milli_seconds)
 
-        buttonStop.setOnClickListener {
+        timer  = findViewById<TextView>(R.id.timer)
+        stopButton = findViewById<Button>(R.id.buttonStop)
+
+        stopButton.setOnClickListener {
             pauseTimer()
         }
+
     }
 
     private fun pauseTimer() {
@@ -68,7 +78,7 @@ class CountDownActivity : AppCompatActivity() {
         countdown_timer.start()
 
         isRunning = true
-        buttonStop.text = "COMPLETE"
+        stopButton.text = "COMPLETE"
     }
 
     private fun updateTextUI() {
@@ -79,6 +89,5 @@ class CountDownActivity : AppCompatActivity() {
         }else{
             timer.text = "$minute:$seconds"
         }
-
     }
 }

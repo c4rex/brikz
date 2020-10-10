@@ -11,12 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.c4rex.brikzapp.countdown.launchCountDownActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.typography
-import com.c4rex.brikzapp.stagepreview.launchStagePreviewActivity
 
 
 class MainActivity : AppCompatActivity() {
