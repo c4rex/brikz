@@ -7,10 +7,8 @@ import com.c4rex.brikzapp.player.PlayerModel
 object LevelMockSource {
     private fun getStages(player:PlayerModel, levelId:Int, topic:String):ArrayList<StageModel> {
         return ArrayList<StageModel>().apply {
-            add(StageModel(1, 1, "$topic 1", 120000, 1, player.getStageCompletedStatusById(levelId, 1), enabled = true, R.drawable.default_male_pic, R.drawable.default_male_pic))
-            add(StageModel(1, 2, "$topic 2", 120000, 1, player.getStageCompletedStatusById(levelId, 2), player.getStageCompletedStatusById(levelId, 1), R.drawable.default_male_pic, R.drawable.default_male_pic))
-            add(StageModel(1, 3, "$topic 3", 120000, 1, player.getStageCompletedStatusById(levelId, 3), player.getStageCompletedStatusById(levelId, 2), R.drawable.default_male_pic, R.drawable.default_male_pic))
-            add(StageModel(1, 4, "$topic 4", 120000, 1, player.getStageCompletedStatusById(levelId, 4), player.getStageCompletedStatusById(levelId, 3), R.drawable.default_male_pic, R.drawable.default_male_pic))
+            add(StageModel(1, 1, "$topic 1", 120000, 1, player.getStageCompletedStatusById(levelId, 1), enabled = true, R.drawable.bricks_level_1_stage_1, arrayListOf(R.drawable.build_level_1_stage_1_opt_1, R.drawable.build_level_1_stage_1_opt_2, R.drawable.build_level_1_stage_1_opt_3)))
+            add(StageModel(1, 2, "$topic 2", 120000, 1, player.getStageCompletedStatusById(levelId, 2), player.getStageCompletedStatusById(levelId, 1), R.drawable.bricks_level_1_stage_2, arrayListOf(R.drawable.build_level_1_stage_2_opt_1, R.drawable.build_level_1_stage_2_opt_2, R.drawable.build_level_1_stage_2_opt_3)))
         }
     }
 
