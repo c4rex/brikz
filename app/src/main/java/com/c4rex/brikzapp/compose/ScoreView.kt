@@ -32,7 +32,7 @@ import com.c4rex.brikzapp.R
 fun Score() {
 
         Image(
-                asset = imageResource(id =R.drawable.back_1 ),
+                asset = imageResource(id =R.drawable.background  ),
                 modifier = Modifier
                         .background(Color(R.color.teal_200))
                         .fillMaxHeight(),contentScale = ContentScale.Fit)
