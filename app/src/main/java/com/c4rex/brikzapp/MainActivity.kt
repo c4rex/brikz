@@ -1,9 +1,10 @@
-package com.c4rex.brikzapp
+package com.c4rex.brikz
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -20,14 +21,16 @@ import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
 import com.c4rex.brikzapp.level.SelectLevelActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
 import com.c4rex.brikzapp.ui.typography
+ 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BrikzAppTheme {
+            BrikzTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
+
                     Column(
                         modifier = Modifier.fillMaxWidth().fillMaxHeight(),
                         verticalArrangement = Arrangement.Center,
@@ -53,10 +56,8 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+
+
 
 @Preview(showBackground = true)
 @Composable
