@@ -92,7 +92,9 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
 
     override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {}
 
-    override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {}
+    override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {
+        gotoPageW()
+    }
 
     override fun onImageTracked(p0: ImageTracker?, p1: ImageTarget?) {}
 
