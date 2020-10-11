@@ -29,6 +29,7 @@ import com.c4rex.brikzapp.MainActivity
 
 import com.c4rex.brikzapp.R
 import com.c4rex.brikzapp.lead.activity.WinActivity
+import com.c4rex.brikzapp.level.SelectLevelActivity
 import com.c4rex.brikzapp.player.PlayerModel
 
 @Composable
@@ -74,7 +75,7 @@ fun back() {
                 null
         )
     }, backgroundColor = Color.Magenta) {
-        Text("Accept")
+        Text("Continue")
     }
     }
 
