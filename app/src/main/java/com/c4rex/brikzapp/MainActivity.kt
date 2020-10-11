@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         RenderChallengeBtn(player)
                         Spacer(Modifier.preferredSize(26.dp))
-                        TimeAttackButton()
                     }
                 }
             }
@@ -66,14 +65,4 @@ class MainActivity : AppCompatActivity() {
             Text(text = "Challenge", style = typography.h2)
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun TimeAttackButton() {
-    Button(backgroundColor = Color.Magenta, onClick = {}, contentColor = Color.White) {
-        Text("Time Attack", style = typography.h2)
-    }
-
 }
