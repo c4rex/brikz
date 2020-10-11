@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
+import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
@@ -48,20 +49,27 @@ class CountDownActivity : AppCompatActivity() {
         setContentView(binding.root)
         val stage = intent.getParcelableExtra<StageModel>("stage")
         val player = intent.getParcelableExtra<PlayerModel>("player")
+        val level = intent.getParcelableExtra<LevelModel>("level")
 
         time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
         startTimer(time_in_milli_seconds, binding)
 
         binding.buttonStop.setOnClickListener {
-            pauseTimer()
+            if (level != null && stage != null && player != null) {
+                pauseTimer(stage, player, level)
+            }
         }
 
     }
 
-    private fun pauseTimer() {
+    private fun pauseTimer(stage:StageModel, player:PlayerModel, level:LevelModel) {
         countdown_timer.cancel()
         isRunning = false
+
         val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
+        intent.putExtra("level", level)
+        intent.putExtra("player", player)
+        intent.putExtra("stage", stage)
         startActivity(intent)
     }
 
