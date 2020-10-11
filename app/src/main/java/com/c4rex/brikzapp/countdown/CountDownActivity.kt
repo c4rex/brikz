@@ -33,36 +33,30 @@ data class StageCountDownActivityArg(
 )
 
 class CountDownActivity : AppCompatActivity() {
-
     private lateinit var countdown_timer: CountDownTimer
     private var isRunning: Boolean = true;
-
-    private lateinit var stopButton: Button
-    private lateinit var timer: TextView
-
     var time_in_milli_seconds = 0L
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val stage = intent.getParcelableExtra<StageModel>("stage")
         val player = intent.getParcelableExtra<PlayerModel>("player")
-
         time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
         startTimer(time_in_milli_seconds, binding)
-
         binding.buttonStop.setOnClickListener {
+            val leftTime = binding.timer.text
             pauseTimer()
+            val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
+            intent.putExtra("stage", stage)
+            intent.putExtra("player", player)
+            intent.putExtra("timeleft", leftTime)
+            startActivity(intent)
         }
-
     }
-
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
-        val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
-        startActivity(intent)
     }
 
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
