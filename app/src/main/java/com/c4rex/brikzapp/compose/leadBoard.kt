@@ -110,7 +110,7 @@ fun LeaderBoard() {
                                 actualColor = Color.Cyan;
 
                             }
-                    LeadearBoardRow(item, index, actualColor)
+                    LeadearBoardRow(item, index + 1, actualColor)
                 }
             }
         }
