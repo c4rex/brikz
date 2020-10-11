@@ -42,13 +42,13 @@ class StagePreviewActivity : AppCompatActivity() {
         }
     }
 
-    private fun intentCountdown(stage:StageModel, player: PlayerModel, level:LevelModel): Intent {
+    private fun intentCountdown(stage:StageModel, player: PlayerModel, level:LevelModel) {
         val intent = Intent(this, CountDownActivity::class.java)
         intent.putExtra("level", level)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
-
-        return intent;
+        startActivity(intent)
+        finish()
     }
 
     @Composable
@@ -65,7 +65,7 @@ class StagePreviewActivity : AppCompatActivity() {
                     .fillMaxSize()
             )
             Button(
-                onClick = { startActivity(intentCountdown(stage, player, level))},
+                onClick = { intentCountdown(stage, player, level) },
                 modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)
                     .weight(0.50f)

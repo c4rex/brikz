@@ -6,9 +6,9 @@ import com.c4rex.brikzapp.player.PlayerModel
 object LevelMockSource {
     private fun getStages(player:PlayerModel, levelId:Int, topic:String):ArrayList<StageModel> {
         return ArrayList<StageModel>().apply {
-            add(StageModel(1, 101, "$topic 1", (1 * 80000L), 1, player.getStageCompletedStatusById(levelId, 101), enabled = true, R.drawable.bricks_level_1_stage_1, arrayListOf(R.drawable.build_level_1_stage_1_opt_1, R.drawable.build_level_1_stage_1_opt_2, R.drawable.build_level_1_stage_1_opt_3)))
-            add(StageModel(1, 102, "$topic 2", (1 * 80000L), 1, player.getStageCompletedStatusById(levelId, 102), player.getStageCompletedStatusById(levelId, 101), R.drawable.bricks_level_1_stage_2, arrayListOf(R.drawable.build_level_1_stage_2_opt_1, R.drawable.build_level_1_stage_2_opt_2, R.drawable.build_level_1_stage_2_opt_3)))
-            add(StageModel(1, 103, "$topic 3", (1 * 80000L), 1, player.getStageCompletedStatusById(levelId, 103), player.getStageCompletedStatusById(levelId, 102), R.drawable.bricks_level_1_stage_2, arrayListOf(R.drawable.build_level_1_stage_2_opt_1, R.drawable.build_level_1_stage_2_opt_2, R.drawable.build_level_1_stage_2_opt_3)))
+            add(StageModel(1, 101, "$topic 1", (1 * 10000L), 1, player.getStageCompletedStatusById(levelId, 101), enabled = true, R.drawable.bricks_level_1_stage_1, arrayListOf(R.drawable.build_level_1_stage_1_opt_1, R.drawable.build_level_1_stage_1_opt_2, R.drawable.build_level_1_stage_1_opt_3)))
+            add(StageModel(1, 102, "$topic 2", (1 * 10000L), 1, player.getStageCompletedStatusById(levelId, 102), player.getStageCompletedStatusById(levelId, 101), R.drawable.bricks_level_1_stage_2, arrayListOf(R.drawable.build_level_1_stage_2_opt_1, R.drawable.build_level_1_stage_2_opt_2, R.drawable.build_level_1_stage_2_opt_3)))
+            add(StageModel(1, 103, "$topic 3", (1 * 10000L), 1, player.getStageCompletedStatusById(levelId, 103), player.getStageCompletedStatusById(levelId, 102), R.drawable.bricks_level_1_stage_2, arrayListOf(R.drawable.build_level_1_stage_2_opt_1, R.drawable.build_level_1_stage_2_opt_2, R.drawable.build_level_1_stage_2_opt_3)))
         }
     }
 
