@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
 import com.c4rex.brikzapp.countdown.CountDownActivity
+import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.ui.BrikzAppTheme
@@ -26,22 +27,24 @@ class StagePreviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        val level = intent.getParcelableExtra<LevelModel>("level")
         val stage = intent.getParcelableExtra<StageModel>("stage")
         val player = intent.getParcelableExtra<PlayerModel>("player")
 
         setContent {
             BrikzAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    if (stage != null && player != null) {
-                        StagePreviewCard(stage, player)
+                    if (stage != null && player != null && level != null) {
+                        StagePreviewCard(stage, player, level)
                     }
                 }
             }
         }
     }
 
-    private fun intentCountdown(stage:StageModel, player: PlayerModel): Intent {
+    private fun intentCountdown(stage:StageModel, player: PlayerModel, level:LevelModel): Intent {
         val intent = Intent(this, CountDownActivity::class.java)
+        intent.putExtra("level", level)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
 
@@ -49,7 +52,7 @@ class StagePreviewActivity : AppCompatActivity() {
     }
 
     @Composable
-    private fun StagePreviewCard(stage: StageModel, player: PlayerModel) {
+    private fun StagePreviewCard(stage: StageModel, player: PlayerModel, level:LevelModel) {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -62,7 +65,7 @@ class StagePreviewActivity : AppCompatActivity() {
                     .fillMaxSize()
             )
             Button(
-                onClick = { startActivity(intentCountdown(stage, player))},
+                onClick = { startActivity(intentCountdown(stage, player, level))},
                 modifier = Modifier
                     .align(alignment = Alignment.CenterHorizontally)
                     .weight(0.50f)

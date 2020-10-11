@@ -1,19 +1,16 @@
 package com.c4rex.brikzapp.countdown
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
+import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
-
 
 private const val TIME_START = "TIME_START"
 
@@ -27,11 +24,9 @@ fun createCountDownActivity(context: Context, timeStart: Long): Intent {
     intent.putExtra(TIME_START, timeStart)
     return intent
 }
-
 data class StageCountDownActivityArg(
     val timeStart: Long
 )
-
 class CountDownActivity : AppCompatActivity() {
     private lateinit var countdown_timer: CountDownTimer
     private var isRunning: Boolean = true;
@@ -42,14 +37,16 @@ class CountDownActivity : AppCompatActivity() {
         setContentView(binding.root)
         val stage = intent.getParcelableExtra<StageModel>("stage")
         val player = intent.getParcelableExtra<PlayerModel>("player")
+        val level = intent.getParcelableExtra<LevelModel>("level")
         time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
         startTimer(time_in_milli_seconds, binding)
         binding.buttonStop.setOnClickListener {
             val leftTime = binding.timer.text
             pauseTimer()
             val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
-            intent.putExtra("stage", stage)
+            intent.putExtra("level", level)
             intent.putExtra("player", player)
+            intent.putExtra("stage", stage)
             intent.putExtra("timeleft", leftTime)
             startActivity(intent)
         }
@@ -58,7 +55,6 @@ class CountDownActivity : AppCompatActivity() {
         countdown_timer.cancel()
         isRunning = false
     }
-
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
         countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
             override fun onFinish() {
@@ -68,17 +64,14 @@ class CountDownActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
             override fun onTick(p0: Long) {
                 time_in_milli_seconds = p0
                 updateTextUI(binding)
             }
         }
         countdown_timer.start()
-
         isRunning = true
     }
-
     private fun updateTextUI(binding: ActivityCountDownBinding) {
         val minute = (time_in_milli_seconds / 1000) / 60
         val seconds = (time_in_milli_seconds / 1000) % 60

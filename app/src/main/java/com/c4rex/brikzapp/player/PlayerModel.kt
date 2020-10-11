@@ -67,6 +67,24 @@ class PlayerModel(
         return completed
     }
 
+    fun updateStageCompletedStatus(levelId:Int, stageId:Int, newStatus:Boolean):Boolean {
+        var updated = true
+
+        loop@ for (level in levelAdvance) {
+            if (level.id == levelId) {
+                for (stage in level.stageAdvance) {
+                    if (stage.id == stageId) {
+                        stage.completed = newStatus
+                        updated = true
+                        break@loop
+                    }
+                }
+            }
+        }
+
+        return updated
+    }
+
     private fun getDefaultProfilePic(): Int {
         return when (this.gender) {
             "male" -> R.drawable.default_male_pic
