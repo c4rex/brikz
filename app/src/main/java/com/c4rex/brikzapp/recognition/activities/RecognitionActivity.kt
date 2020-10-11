@@ -24,6 +24,9 @@ import androidx.core.content.ContextCompat
 import androidx.ui.tooling.preview.Preview
 import com.c4rex.brikzapp.MainActivity
 import com.c4rex.brikzapp.lead.activity.WinActivity
+import com.c4rex.brikzapp.level.LevelModel
+import com.c4rex.brikzapp.level.StageModel
+import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.rendering.RecognitionDriver
 import com.c4rex.brikzapp.recognition.rendering.RecognitionRenderer
 import com.c4rex.brikzapp.recognition.rendering.RecognitionView
@@ -131,13 +134,18 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     }
 
     private fun gotoPageW() {
-        ContextCompat.startActivity(
-            this,
-            Intent(
-                this@RecognitionActivity, WinActivity::class.java
-            ),
-            null
-        )
+        val stage = intent.getParcelableExtra<StageModel>("stage")
+        val player = intent.getParcelableExtra<PlayerModel>("player")
+        val level = intent.getParcelableExtra<LevelModel>("level")
+
+        Log.v("awMe", stage.toString())
+
+        val intent = Intent(this@RecognitionActivity, WinActivity::class.java)
+        intent.putExtra("stage", stage)
+        intent.putExtra("player", player)
+        intent.putExtra("level", level)
+
+        ContextCompat.startActivity(this, intent, null)
     }
 
     @Preview

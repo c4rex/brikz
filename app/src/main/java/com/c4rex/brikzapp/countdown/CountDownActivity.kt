@@ -1,4 +1,5 @@
 package com.c4rex.brikzapp.countdown
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -24,13 +25,16 @@ fun createCountDownActivity(context: Context, timeStart: Long): Intent {
     intent.putExtra(TIME_START, timeStart)
     return intent
 }
+
 data class StageCountDownActivityArg(
     val timeStart: Long
 )
+
 class CountDownActivity : AppCompatActivity() {
     private lateinit var countdown_timer: CountDownTimer
     private var isRunning: Boolean = true;
     var time_in_milli_seconds = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCountDownBinding.inflate(layoutInflater)
@@ -38,8 +42,10 @@ class CountDownActivity : AppCompatActivity() {
         val stage = intent.getParcelableExtra<StageModel>("stage")
         val player = intent.getParcelableExtra<PlayerModel>("player")
         val level = intent.getParcelableExtra<LevelModel>("level")
+
         time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
         startTimer(time_in_milli_seconds, binding)
+
         binding.buttonStop.setOnClickListener {
             val leftTime = binding.timer.text
             pauseTimer()
@@ -64,6 +70,7 @@ class CountDownActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
             override fun onTick(p0: Long) {
                 time_in_milli_seconds = p0
                 updateTextUI(binding)
@@ -72,6 +79,7 @@ class CountDownActivity : AppCompatActivity() {
         countdown_timer.start()
         isRunning = true
     }
+
     private fun updateTextUI(binding: ActivityCountDownBinding) {
         val minute = (time_in_milli_seconds / 1000) / 60
         val seconds = (time_in_milli_seconds / 1000) % 60
