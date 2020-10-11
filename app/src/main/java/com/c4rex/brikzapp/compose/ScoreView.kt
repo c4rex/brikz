@@ -29,11 +29,14 @@ import com.c4rex.brikzapp.MainActivity
 
 import com.c4rex.brikzapp.R
 import com.c4rex.brikzapp.lead.activity.WinActivity
+import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.SelectLevelActivity
+import com.c4rex.brikzapp.level.SelectStageActivity
+import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 
 @Composable
-fun Score(score: Int, player: String, level: String, Stage: String) {
+fun Score(score: Int, player:PlayerModel, level:LevelModel, stage:StageModel) {
     Stack {
 
         Image(
@@ -48,7 +51,7 @@ fun Score(score: Int, player: String, level: String, Stage: String) {
 
             Text(text = score.toString(), Modifier.fillMaxWidth().weight(8f).background(color = Color(R.color.teal_200)), textAlign = TextAlign.Center, style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 30.sp, color = Color.Yellow))
             Spacer(modifier = Modifier.weight(5f))
-            back()
+            back(level, player)
             Spacer(modifier = Modifier.weight(35f))
 
 
@@ -63,15 +66,18 @@ fun Score(score: Int, player: String, level: String, Stage: String) {
 }
 
 @Composable
-fun back() {
+fun back(level:LevelModel, player:PlayerModel) {
     val context = ContextAmbient.current
     Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center){
     Button(modifier = Modifier, onClick = {
         ContextCompat.startActivity(
                 context,
                 Intent(
-                        context, MainActivity::class.java
-                ),
+                        context, SelectStageActivity::class.java
+                ).apply {
+                    putExtra("player", player)
+                    putExtra("level", level)
+                },
                 null
         )
     }, backgroundColor = Color.Magenta) {
@@ -79,14 +85,4 @@ fun back() {
     }
     }
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ScorePreview() {
-    var level = "1"
-    var player = "player_1"
-    var score = 889
-    var stage = "1"
-    Score(level = level, player = player, score = score, Stage = stage)
 }

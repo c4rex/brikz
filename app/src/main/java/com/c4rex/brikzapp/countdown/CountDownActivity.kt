@@ -55,22 +55,21 @@ class CountDownActivity : AppCompatActivity() {
         startTimer(time_in_milli_seconds, binding)
 
         binding.buttonStop.setOnClickListener {
-            if (level != null && stage != null && player != null) {
-                pauseTimer(stage, player, level)
-            }
+            val leftTime = binding.timer.text
+            pauseTimer()
+            val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
+            intent.putExtra("stage", stage)
+            intent.putExtra("player", player)
+            intent.putExtra("level", level)
+            intent.putExtra("timeleft", leftTime)
+            startActivity(intent)
         }
 
     }
 
-    private fun pauseTimer(stage:StageModel, player:PlayerModel, level:LevelModel) {
+    private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
-
-        val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
-        intent.putExtra("level", level)
-        intent.putExtra("player", player)
-        intent.putExtra("stage", stage)
-        startActivity(intent)
     }
 
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {

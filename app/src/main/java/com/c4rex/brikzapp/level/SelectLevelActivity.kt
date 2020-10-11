@@ -86,7 +86,7 @@ class SelectLevelActivity : AppCompatActivity() {
         val intent = Intent(this, SelectStageActivity::class.java)
         intent.putExtra("level", level)
         intent.putExtra("player", player)
-        Log.v("awMe3", level.toString())
+
         if (level.enabled) {
             startActivity(intent)
         }
