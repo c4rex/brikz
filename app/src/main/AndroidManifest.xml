@@ -28,9 +28,13 @@
             />
         <activity android:name=".level.SelectStageActivity" />
 
-        <activity android:name=".lead.activity.LeadActivity" />
-        <activity android:name=".lead.activity.WinActivity" />
-        <activity android:name=".stagepreview.StagePreviewActivity"></activity>
+        <activity android:name=".lead.activity.LeadActivity"
+            android:theme="@style/Theme.BrikzApp.NoActionBar"
+            />
+        <activity android:name=".lead.activity.WinActivity"
+            android:theme="@style/Theme.BrikzApp.NoActionBar"
+            />
+        <activity android:name=".stagepreview.StagePreviewActivity" />
 
         <activity
             android:name=".MainActivity"
