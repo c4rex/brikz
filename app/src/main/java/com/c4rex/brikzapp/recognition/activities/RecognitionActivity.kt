@@ -55,7 +55,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     private lateinit var recognitionView : RecognitionView
     private lateinit var driver : RecognitionDriver
     private lateinit var countdown_timer: CountDownTimer
-    var time_in_milli_seconds = 10000L
+    var time_in_milli_seconds = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -151,7 +151,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
             )
         )
 
-        startTimer(10)
+        startTimer(10000L)
     }
 
     override fun onBackPressed() {
