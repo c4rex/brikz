@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">brikzApp</string>
     <string name="complete_the_stage">Complete the stage</string>
+    <string name="finished_building">Finished building</string>
 </resources>
