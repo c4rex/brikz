@@ -16,15 +16,12 @@ import com.c4rex.brikzapp.lead.activity.ui.BrikzAppTheme
 class WinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var scoreR: ScoreRepos = ScoreRepos();
         super.onCreate(savedInstanceState)
         var level = "1"
         var player = "player_1"
         var score = 889
         var stage = "1"
 
-
-        scoreR.updateScore(score = score,nivel = level,stage = stage,user = player)
         setContent {
             BrikzAppTheme {
                 // A surface container using the 'background' color from the theme

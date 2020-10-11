@@ -1,14 +1,10 @@
 package com.c4rex.brikzapp.compose
 
-import androidx.compose.foundation.Box
+import androidx.compose.foundation.*
 import androidx.compose.runtime.Composable
 import androidx.ui.tooling.preview.Preview
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 
@@ -31,17 +27,34 @@ import com.c4rex.brikzapp.player.PlayerModel
 
 @Composable
 fun Score(score:Int,player:String,level:String,Stage:String) {
+    Stack{
 
         Image(
-                asset = imageResource(id =R.drawable.background  ),
+                asset = imageResource(id =R.drawable.background_winner_cup  ),
                 modifier = Modifier
                         .background(Color(R.color.teal_200))
                         .fillMaxHeight(),contentScale = ContentScale.FillHeight)
-    Column() {
-        Text(text = "Success",modifier = Modifier.fillMaxWidth().weight(10f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Normal,fontSize = 30.sp,fontWeight = FontWeight.Bold))
-        Text(text = score.toString(), Modifier.fillMaxWidth().weight(5f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Italic,fontSize = 30.sp))
+        Column() {
+            Spacer(modifier = Modifier.weight(40f))
+            Text(text = "Success",modifier = Modifier.fillMaxWidth().weight(8f).background(color =  Color(R.color.teal_200)),textAlign = TextAlign.Center,style = TextStyle(color = Color.Yellow, fontStyle = FontStyle.Normal,fontSize = 30.sp,fontWeight = FontWeight.Bold))
+            Text(text = "",modifier = Modifier.fillMaxWidth().weight(3f).background(color =  Color.Yellow).border(border = BorderStroke(width = 3.dp,color = Color(R.color.teal_700))),textAlign = TextAlign.Center,style = TextStyle(color = Color.Yellow, fontStyle = FontStyle.Normal,fontSize = 30.sp,fontWeight = FontWeight.Bold))
 
+            Text(text = score.toString(), Modifier.fillMaxWidth().weight(8f).background(color =  Color(R.color.teal_200)),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Italic,fontSize = 30.sp,color = Color.Yellow))
+            Spacer(modifier = Modifier.weight(40f))
+
+        }
     }
+
+
+
+
+
+
+
+//
+
+
+
 }
 
 @Preview(showBackground = true)
