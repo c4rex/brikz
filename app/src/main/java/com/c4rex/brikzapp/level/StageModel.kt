@@ -7,8 +7,8 @@ import com.c4rex.brikzapp.R
 import java.util.*
 
 data class StageModel(
-    var id: Int,
-    var stageId:Int,
+    var levelId: Int,
+    var id:Int,
     var name: String?,
     var timeMilSec: Long,
     var difficulty:Int,
@@ -43,8 +43,8 @@ data class StageModel(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(levelId)
         parcel.writeInt(id)
-        parcel.writeInt(stageId)
         parcel.writeString(name)
         parcel.writeLong(timeMilSec)
         parcel.writeInt(difficulty)

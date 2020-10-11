@@ -3,6 +3,7 @@ package com.c4rex.brikzapp.level
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -33,7 +34,7 @@ class SelectStageActivity : AppCompatActivity() {
             BrikzAppTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     if (level != null && player != null) {
-                        setUpStages(stages = level.stages, player = player) {}
+                        setUpStages(level = level, stages = level.stages, player = player) {}
                     }
                 }
             }
@@ -42,6 +43,7 @@ class SelectStageActivity : AppCompatActivity() {
 
     @Composable
     private fun setUpStages(
+        level: LevelModel,
         stages: List<StageModel>,
         player: PlayerModel,
         onSelected: (StageModel) -> Unit
@@ -51,13 +53,14 @@ class SelectStageActivity : AppCompatActivity() {
             horizontalArrangement = Arrangement.Center
         ) {
             stages.forEach {
-                LevelCard(it, player) { onSelected(it) }
+                LevelCard(it, player, level) { onSelected(it) }
             }
         }
     }
 
-    private fun intentPreviewStage(stage:StageModel, player:PlayerModel): Intent {
+    private fun intentPreviewStage(level:LevelModel, stage:StageModel, player:PlayerModel): Intent {
         val intent = Intent(this, StagePreviewActivity::class.java)
+        intent.putExtra("level", level)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
 
@@ -76,6 +79,7 @@ class SelectStageActivity : AppCompatActivity() {
     private fun LevelCard(
         stage: StageModel,
         player: PlayerModel,
+        level: LevelModel,
         onClick: () -> Unit
     ) {
         val padding = 20.dp
@@ -119,7 +123,7 @@ class SelectStageActivity : AppCompatActivity() {
                                 .fillMaxWidth(),
                     ) {
                         Button(
-                                onClick = { startActivity(intentPreviewStage(stage, player))},
+                                onClick = { startActivity(intentPreviewStage(level, stage, player))},
                                 modifier = Modifier
                                         .weight(2f)
                                         .fillMaxHeight(),

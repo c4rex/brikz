@@ -21,6 +21,20 @@ data class LevelModel(
     ) {
     }
 
+    fun enableStage(stageId:Int, newValue:Boolean):Boolean {
+        var updated = false
+
+        for (stage in stages) {
+            if (stage.id == stageId) {
+                stage.enabled = newValue
+                updated = true
+                break
+            }
+        }
+
+        return updated
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(name)
