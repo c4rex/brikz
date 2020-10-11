@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Greeting("Brikz")
-
+                        WinButton()
                         RenderChallengeBtn(player)
                         Spacer(Modifier.preferredSize(26.dp))
 

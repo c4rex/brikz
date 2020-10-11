@@ -1,6 +1,7 @@
 package com.c4rex.brikzapp.lead.activity
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.material.MaterialTheme
@@ -16,14 +17,16 @@ import com.c4rex.brikzapp.lead.activity.ui.BrikzAppTheme
 class WinActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         var level = "1"
         var player = "player_1"
-        var score = 889
+        var score =       (500..1000).random()
         var stage = "1"
 
         setContent {
             BrikzAppTheme {
+
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                         Score(level = level ,player = player, score = score, Stage = stage)
@@ -31,5 +34,9 @@ class WinActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onBackPressed() {
+
+    }
 }
+
 
