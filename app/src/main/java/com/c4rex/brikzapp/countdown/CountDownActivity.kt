@@ -2,16 +2,19 @@ package com.c4rex.brikzapp.countdown
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
 import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
+import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 
 private const val TIME_START = "TIME_START"
 
@@ -36,6 +39,7 @@ class CountDownActivity : AppCompatActivity() {
     var time_in_milli_seconds = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState)
         val binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,7 +48,9 @@ class CountDownActivity : AppCompatActivity() {
         val level = intent.getParcelableExtra<LevelModel>("level")
 
         time_in_milli_seconds = if (stage != null) stage.timeMilSec else (1 * 60000L)
-        startTimer(time_in_milli_seconds, binding)
+        if (stage != null && player != null && level != null) {
+            startTimer(time_in_milli_seconds, binding, stage, player, level)
+        }
 
         binding.buttonStop.setOnClickListener {
             val leftTime = binding.timer.text
@@ -55,13 +61,20 @@ class CountDownActivity : AppCompatActivity() {
             intent.putExtra("stage", stage)
             intent.putExtra("timeleft", leftTime)
             startActivity(intent)
+            finish()
         }
     }
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
     }
-    private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
+    private fun startTimer(
+        time_in_seconds: Long,
+        binding: ActivityCountDownBinding,
+        stage: StageModel,
+        player: PlayerModel,
+        level: LevelModel
+    ) {
         countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
             override fun onFinish() {
                 Toast.makeText(
@@ -69,6 +82,12 @@ class CountDownActivity : AppCompatActivity() {
                     "You did not complete the challenge, try again",
                     Toast.LENGTH_SHORT
                 ).show()
+                val intent = Intent(this@CountDownActivity, StagePreviewActivity::class.java)
+                intent.putExtra("level", level)
+                intent.putExtra("player", player)
+                intent.putExtra("stage", stage)
+                startActivity(intent)
+                finish()
             }
 
             override fun onTick(p0: Long) {
@@ -88,5 +107,10 @@ class CountDownActivity : AppCompatActivity() {
         }else{
             binding.timer.text = "$minute:$seconds"
         }
+    }
+
+    override fun onBackPressed() {
+        pauseTimer()
+        finish()
     }
 }

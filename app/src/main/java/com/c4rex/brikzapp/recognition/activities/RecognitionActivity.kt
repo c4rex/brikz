@@ -6,10 +6,12 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
@@ -30,6 +32,7 @@ import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.rendering.RecognitionDriver
 import com.c4rex.brikzapp.recognition.rendering.RecognitionRenderer
 import com.c4rex.brikzapp.recognition.rendering.RecognitionView
+import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 import com.wikitude.NativeStartupConfiguration
 import com.wikitude.WikitudeSDK
 import com.wikitude.common.WikitudeError
@@ -51,6 +54,8 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     private lateinit var recognitionRenderer : RecognitionRenderer
     private lateinit var recognitionView : RecognitionView
     private lateinit var driver : RecognitionDriver
+    private lateinit var countdown_timer: CountDownTimer
+    var time_in_milli_seconds = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +75,23 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         wikitudeSDK.trackerManager.createImageTracker(targetCollectionResource, this, null)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    private fun startTimer(time_in_seconds: Long) {
+        countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
+            override fun onFinish() {
+                gotoPageW()
+            }
+
+            override fun onTick(p0: Long) {
+                time_in_milli_seconds = p0
+            }
+        }
+        countdown_timer.start()
+    }
+
+    private fun pauseTimer() {
+        countdown_timer.cancel()
     }
 
     override fun onResume() {
@@ -96,6 +118,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {}
 
     override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {
+        pauseTimer()
         gotoPageW()
     }
 
@@ -128,9 +151,12 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
             )
         )
 
-        Timer("crashFailSafe", false).schedule(10000) {
-            gotoPageW()
-        }
+        startTimer(10000L)
+    }
+
+    override fun onBackPressed() {
+        pauseTimer()
+        finish()
     }
 
     private fun gotoPageW() {
@@ -138,14 +164,13 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         val player = intent.getParcelableExtra<PlayerModel>("player")
         val level = intent.getParcelableExtra<LevelModel>("level")
 
-        Log.v("awMe", stage.toString())
-
         val intent = Intent(this@RecognitionActivity, WinActivity::class.java)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
         intent.putExtra("level", level)
 
         ContextCompat.startActivity(this, intent, null)
+        finish()
     }
 
     @Preview
