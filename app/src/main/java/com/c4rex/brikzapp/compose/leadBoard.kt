@@ -24,6 +24,7 @@ import androidx.ui.tooling.preview.Preview
 
 import com.c4rex.brikzapp.model.RankItem
 import com.c4rex.brikzapp.R
+import io.github.serpro69.kfaker.Faker
 
 val colors: Array<Color> = arrayOf(Color.LightGray,Color.DarkGray)
 @Composable
@@ -77,20 +78,20 @@ fun LeadearBoardRow(item: RankItem, position: Int,color:Color) {
 
 @Composable
 fun LeaderBoard() {
-
+    val faker = Faker()
     val items: Array<RankItem> = arrayOf(
-            RankItem(1, "user 1", 999999),
-            RankItem(3, "user 1", 8896),
-            RankItem(1, "user 1", 15666),
-            RankItem(3, "user 1", 11896),
-            RankItem(1, "user 1", 1298),
-            RankItem(3, "user 1", 342),
-            RankItem(3, "user 1", 123),
-            RankItem(3, "user 1", 234),
-            RankItem(3, "user 1", 222),
-            RankItem(3, "user 1", 241),
-            RankItem(3, "user 1", 222),
-            RankItem(1, "user 1", 100)
+            RankItem(3, faker.name.femaleFirstName(), 999999),
+            RankItem(1, faker.name.maleFirstName(), 88888),
+            RankItem(3, faker.name.femaleFirstName(), 77777),
+            RankItem(1, faker.name.maleFirstName(), 6565),
+            RankItem(3, faker.name.femaleFirstName(), 4546),
+            RankItem(1, faker.name.maleFirstName(), 3434),
+            RankItem(1, faker.name.maleFirstName(), 2121),
+            RankItem(1, faker.name.maleFirstName(), 888),
+            RankItem(3, faker.name.femaleFirstName(), 543),
+            RankItem(3, faker.name.femaleFirstName(), 222),
+            RankItem(1, faker.name.maleFirstName(), 112),
+            RankItem(3, faker.name.femaleFirstName(), 90),
     );
 
 
@@ -114,7 +115,7 @@ fun LeaderBoard() {
             }
         }
 
-        LeadearBoardRow(RankItem(3, "tttttt", 22), 22, Color.Green)
+        LeadearBoardRow(RankItem(3, faker.name.femaleFirstName(), 22), 22, Color.Green)
 
 
     }

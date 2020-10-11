@@ -24,7 +24,6 @@ class WinActivity : AppCompatActivity() {
         var stage = "1"
 
 
-
         scoreR.updateScore(score = score,nivel = level,stage = stage,user = player)
         setContent {
             BrikzAppTheme {

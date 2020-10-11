@@ -13,7 +13,7 @@ data class User(
 
 )
 class ScoreRepos {
-    val database = Firebase.database
+//    val database = Firebase.database
 
 
 
@@ -29,8 +29,8 @@ class ScoreRepos {
         val scoreUser = hashMapOf(
                 scorekey to score
         )
-        database.getReference("User/${user}/levels").setValue(scoreUser);
-        database.getReference("scores/${scorekey}").setValue(scoreTable);
+//        database.getReference("User/${user}/levels").setValue(scoreUser);
+//        database.getReference("scores/${scorekey}").setValue(scoreTable);
 
     }
 

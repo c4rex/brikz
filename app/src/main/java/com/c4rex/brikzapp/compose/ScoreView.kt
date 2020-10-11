@@ -42,16 +42,6 @@ fun Score(score:Int,player:String,level:String,Stage:String) {
         Text(text = score.toString(), Modifier.fillMaxWidth().weight(5f),textAlign = TextAlign.Center,style = TextStyle(fontStyle = FontStyle.Italic,fontSize = 30.sp))
 
     }
-
-
-
-
-
-
-//
-
-
-
 }
 
 @Preview(showBackground = true)
