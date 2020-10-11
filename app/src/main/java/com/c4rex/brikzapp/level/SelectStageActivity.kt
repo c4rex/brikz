@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.c4rex.brikzapp.R
+import com.c4rex.brikzapp.lead.activity.LeadActivity
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 import com.c4rex.brikzapp.ui.BrikzAppTheme
@@ -68,7 +69,7 @@ class SelectStageActivity : AppCompatActivity() {
     }
 
     private fun intentLeaderBoard(stage:StageModel, player:PlayerModel): Intent {
-        val intent = Intent(this, SelectStageActivity::class.java)
+        val intent = Intent(this, LeadActivity::class.java)
         intent.putExtra("stage", stage)
         intent.putExtra("player", player)
 
@@ -132,7 +133,7 @@ class SelectStageActivity : AppCompatActivity() {
                             Text(text = "Let's Build!", style = typography.h2)
                         }
                         Button(
-                                onClick = {},
+                                onClick = { startActivity(intentLeaderBoard(stage, player)) },
                                 modifier = Modifier
                                         .weight(1f)
                                         .fillMaxHeight(),

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.c4rex.brikzapp.databinding.ActivityCountDownBinding
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
+import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
 
 
 private const val TIME_START = "TIME_START"
@@ -60,6 +61,8 @@ class CountDownActivity : AppCompatActivity() {
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
+        val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
@@ -80,7 +83,6 @@ class CountDownActivity : AppCompatActivity() {
         countdown_timer.start()
 
         isRunning = true
-        binding.buttonStop.text = "COMPLETE"
     }
 
     private fun updateTextUI(binding: ActivityCountDownBinding) {

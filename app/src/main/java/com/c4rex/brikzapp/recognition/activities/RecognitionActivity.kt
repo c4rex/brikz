@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.ui.tooling.preview.Preview
 import com.c4rex.brikzapp.MainActivity
+import com.c4rex.brikzapp.lead.activity.WinActivity
 import com.c4rex.brikzapp.recognition.rendering.RecognitionDriver
 import com.c4rex.brikzapp.recognition.rendering.RecognitionRenderer
 import com.c4rex.brikzapp.recognition.rendering.RecognitionView
@@ -122,7 +123,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
             )
         )
 
-        Timer("crashFailSafe", false).schedule(5000) {
+        Timer("crashFailSafe", false).schedule(10000) {
             gotoPageW()
         }
     }
@@ -131,7 +132,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         ContextCompat.startActivity(
             this,
             Intent(
-                this, MainActivity::class.java
+                this@RecognitionActivity, WinActivity::class.java
             ),
             null
         )
