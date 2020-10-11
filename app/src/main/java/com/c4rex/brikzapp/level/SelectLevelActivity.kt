@@ -2,6 +2,7 @@ package com.c4rex.brikzapp.level
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollableColumn
@@ -36,7 +37,7 @@ class SelectLevelActivity : AppCompatActivity() {
         setContent {
             BrikzAppTheme {
                 Image(
-                    asset = imageResource(id = R.drawable.padlock),
+                    asset = imageResource(id = R.drawable.background_default_resize),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
@@ -85,6 +86,7 @@ class SelectLevelActivity : AppCompatActivity() {
         val intent = Intent(this, SelectStageActivity::class.java)
         intent.putExtra("level", level)
         intent.putExtra("player", player)
+        Log.v("awMe3", level.toString())
         if (level.enabled) {
             startActivity(intent)
         }
