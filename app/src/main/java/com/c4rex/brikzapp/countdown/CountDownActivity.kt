@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +12,6 @@ import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
 import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.activities.RecognitionActivity
-
 
 private const val TIME_START = "TIME_START"
 
@@ -34,13 +31,8 @@ data class StageCountDownActivityArg(
 )
 
 class CountDownActivity : AppCompatActivity() {
-
     private lateinit var countdown_timer: CountDownTimer
     private var isRunning: Boolean = true;
-
-    private lateinit var stopButton: Button
-    private lateinit var timer: TextView
-
     var time_in_milli_seconds = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,20 +50,17 @@ class CountDownActivity : AppCompatActivity() {
             val leftTime = binding.timer.text
             pauseTimer()
             val intent = Intent(this@CountDownActivity, RecognitionActivity::class.java)
-            intent.putExtra("stage", stage)
-            intent.putExtra("player", player)
             intent.putExtra("level", level)
+            intent.putExtra("player", player)
+            intent.putExtra("stage", stage)
             intent.putExtra("timeleft", leftTime)
             startActivity(intent)
         }
-
     }
-
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
     }
-
     private fun startTimer(time_in_seconds: Long, binding: ActivityCountDownBinding) {
         countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
             override fun onFinish() {
@@ -88,7 +77,6 @@ class CountDownActivity : AppCompatActivity() {
             }
         }
         countdown_timer.start()
-
         isRunning = true
     }
 
