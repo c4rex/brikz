@@ -1,17 +1,13 @@
 package com.c4rex.brikzapp.recognition.activities
 
-import java.util.Timer
-import kotlin.concurrent.schedule
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
@@ -23,8 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.ui.tooling.preview.Preview
-import com.c4rex.brikzapp.MainActivity
 import com.c4rex.brikzapp.lead.activity.WinActivity
 import com.c4rex.brikzapp.level.LevelModel
 import com.c4rex.brikzapp.level.StageModel
@@ -32,7 +26,6 @@ import com.c4rex.brikzapp.player.PlayerModel
 import com.c4rex.brikzapp.recognition.rendering.RecognitionDriver
 import com.c4rex.brikzapp.recognition.rendering.RecognitionRenderer
 import com.c4rex.brikzapp.recognition.rendering.RecognitionView
-import com.c4rex.brikzapp.stagepreview.StagePreviewActivity
 import com.wikitude.NativeStartupConfiguration
 import com.wikitude.WikitudeSDK
 import com.wikitude.common.WikitudeError
@@ -55,7 +48,7 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     private lateinit var recognitionView : RecognitionView
     private lateinit var driver : RecognitionDriver
     private lateinit var countdown_timer: CountDownTimer
-    var time_in_milli_seconds = 1000L
+    private var countdown_is_running = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,22 +68,29 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         wikitudeSDK.trackerManager.createImageTracker(targetCollectionResource, this, null)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        createTimer(5000L)
     }
-
-    private fun startTimer(time_in_seconds: Long) {
+    private fun createTimer(time_in_seconds: Long) {
         countdown_timer = object : CountDownTimer(time_in_seconds, 1000) {
             override fun onFinish() {
+                countdown_is_running = false;
                 gotoPageW()
             }
 
             override fun onTick(p0: Long) {
-                time_in_milli_seconds = p0
+                countdown_is_running = true;
             }
         }
-        countdown_timer.start()
+    }
+
+    private fun startTimer() {
+        if (!countdown_is_running) {
+            countdown_timer.start()
+        }
     }
 
     private fun pauseTimer() {
+        countdown_is_running = false;
         countdown_timer.cancel()
     }
 
@@ -118,13 +118,18 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
     override fun onErrorLoadingTargets(p0: ImageTracker?, p1: WikitudeError?) {}
 
     override fun onImageRecognized(p0: ImageTracker?, p1: ImageTarget?) {
-        pauseTimer()
-        gotoPageW()
+        if (!countdown_is_running) {
+            startTimer()
+        }
     }
 
     override fun onImageTracked(p0: ImageTracker?, p1: ImageTarget?) {}
 
-    override fun onImageLost(p0: ImageTracker?, p1: ImageTarget?) {}
+    override fun onImageLost(p0: ImageTracker?, p1: ImageTarget?) {
+        if (countdown_is_running) {
+            pauseTimer()
+        }
+    }
 
     override fun onExtendedTrackingQualityChanged(p0: ImageTracker?, p1: ImageTarget?, p2: Int, p3: Int) {}
 
@@ -150,8 +155,6 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
         )
-
-        startTimer(10000L)
     }
 
     override fun onBackPressed() {
@@ -173,7 +176,6 @@ class RecognitionActivity : AppCompatActivity(), ImageTrackerListener, ExternalR
         finish()
     }
 
-    @Preview
     @Composable
     fun showInstructions(){
         Card(
